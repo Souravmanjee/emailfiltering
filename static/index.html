@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Email List Cleaning</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Email List Cleaning By NSS</h1>
+      <form id="uploadForm">
+        <div id="dropZone" class="dropzone" tabindex="0" role="button" aria-label="Drop files here or click to select">
+          <div class="dz-title">Drag & drop .txt, .csv, or .xlsx here</div>
+          <div class="muted">or click to choose a file</div>
+        </div>
+
+        <div class="field">
+          <label for="file">Upload file (.txt, .csv, .xlsx)</label>
+          <input type="file" id="file" name="file" accept=".txt,.csv,.xlsx" required />
+          <div id="fileInfo" class="muted"></div>
+        </div>
+
+        <div class="grid">
+          <div class="field checkbox">
+            <input type="checkbox" id="remove_duplicates" name="remove_duplicates" checked />
+            <label for="remove_duplicates">Remove duplicates</label>
+          </div>
+          <div class="field checkbox">
+            <input type="checkbox" id="remove_invalid" name="remove_invalid" checked />
+            <label for="remove_invalid">Remove invalid emails</label>
+          </div>
+        </div>
+
+        <div class="grid">
+          <div class="field checkbox">
+            <input type="checkbox" id="remove_single_char" name="remove_single_char" checked />
+            <label for="remove_single_char">Remove single characters (a@gmail.com)</label>
+          </div>
+          <div class="field checkbox">
+            <input type="checkbox" id="remove_numeric_start" name="remove_numeric_start" checked />
+            <label for="remove_numeric_start">Remove starting with numbers (123@gmail.com)</label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="keywords">Remove emails containing keywords (comma-separated)</label>
+          <div class="keyword-input-group">
+            <input type="text" id="keywords" name="keywords" placeholder="e.g., test, admin, noreply" />
+            <button type="button" id="saveKeywords" class="btn-secondary">Save</button>
+            <button type="button" id="loadKeywords" class="btn-secondary">Load Saved</button>
+          </div>
+          <div id="savedKeywords" class="saved-keywords"></div>
+        </div>
+
+        <div class="field">
+          <label for="output_format">Output format</label>
+          <select id="output_format" name="output_format">
+            <option value="same">Same as uploaded</option>
+            <option value="csv">CSV (.csv)</option>
+            <option value="txt">Text (.txt)</option>
+            <option value="xlsx">Excel (.xlsx)</option>
+          </select>
+        </div>
+
+        <button type="submit" id="cleanBtn">Clean List</button>
+      </form>
+
+      <div id="result" class="result hidden">
+        <h2>Summary</h2>
+        <div id="summary"></div>
+
+        <div class="preview-controls">
+          <div class="field checkbox">
+            <input type="checkbox" id="preview_toggle" />
+            <label for="preview_toggle">Show live preview</label>
+          </div>
+          <div class="field small-field">
+            <label for="preview_count">Preview rows</label>
+            <input type="number" id="preview_count" min="1" max="10000" value="100" />
+          </div>
+        </div>
+        <div id="preview_box" class="preview hidden" aria-live="polite"></div>
+
+        <button id="downloadBtn" disabled>Download Cleaned File</button>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
