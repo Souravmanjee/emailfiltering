@@ -1,5 +1,18 @@
 {
-    "rewrites": [
-      { "source": "/(.*)", "destination": "/static/index.html" }
-    ]
-  }
+  "rewrites": [
+    { "source": "/", "destination": "/index.html" },
+    { "source": "/styles.css", "destination": "/styles.css" },
+    { "source": "/script.js", "destination": "/script.js" }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        }
+      ]
+    }
+  ]
+}
